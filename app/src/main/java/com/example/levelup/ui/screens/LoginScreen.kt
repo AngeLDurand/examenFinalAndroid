@@ -47,10 +47,10 @@ fun LoginScreen(
         ) {
 
             if (state.isLoading) {
-                // 🔄 Spinner mientras se hace login
+                // Spinner mientras se hace login
                 CircularProgressIndicator()
             } else {
-                // 🧾 Formulario de login
+                // Formulario de login
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -106,7 +106,7 @@ fun LoginScreen(
                                     scope.launch {
                                         // Spinner sigue activo mientras se muestra el snackbar
                                         snackbarHostState.showSnackbar("Login exitoso")
-                                        onLoginSuccess(token)   // navegas a Home
+                                        onLoginSuccess(token)   //
                                     }
                                 },
                                 onError = {
