@@ -61,11 +61,13 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
-// OkHttp (opcional pero útil para ver logs)
+    // OkHttp
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-// Coroutines (si aún no las tienes)
+    // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
 }

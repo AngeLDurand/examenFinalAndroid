@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.levelup.session.SessionManager
-import com.example.levelup.ui.screens.HomeScreen
+import com.example.levelup.ui.screens.home.HomeScreen
 import com.example.levelup.ui.screens.LoginScreen
 import com.example.levelup.ui.screens.RegisterScreen
 import com.example.levelup.ui.screens.WelcomeScreen

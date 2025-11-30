@@ -8,7 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 @Composable
 fun WelcomeScreen(
@@ -25,9 +27,13 @@ fun WelcomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = "LevelUp Gamer",
-                style = MaterialTheme.typography.headlineLarge
+            AsyncImage(
+                model = "https://levelup-gamer-assets-prod.s3.us-east-1.amazonaws.com/logoLevelUp.webp",
+                contentDescription = "Logo LevelUp Gamer",
+                modifier = Modifier
+                    .height(180.dp)
+                    .fillMaxWidth(),
+                contentScale = ContentScale.Fit
             )
             Text(
                 text = "¡Bienvenido a tu tienda gamer!",
