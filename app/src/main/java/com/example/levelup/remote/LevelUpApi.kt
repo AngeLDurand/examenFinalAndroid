@@ -3,9 +3,11 @@ package com.example.levelup.remote
 import com.example.levelup.dto.ChangePasswordRequestDTO
 import com.example.levelup.dto.LoginRequestDTO
 import com.example.levelup.dto.LoginResponseDTO
+import com.example.levelup.dto.ProductResponseDTO
 import com.example.levelup.dto.RegisterRequestDTO
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -27,5 +29,9 @@ interface LevelUpApi {
         @Header("Authorization") authHeader: String,
         @Body request: ChangePasswordRequestDTO
     ): Response<Void>
+
+
+    @GET("products")
+    suspend fun getProducts(): Response<List<ProductResponseDTO>>
 
 }

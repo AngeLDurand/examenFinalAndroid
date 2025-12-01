@@ -13,18 +13,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.levelup.ui.layout.HomeTab
 import com.example.levelup.ui.layout.LevelUpScaffold
 import com.example.levelup.ui.layout.ProfileSection
+import com.example.levelup.viewmodel.CartViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
     onLogout: () -> Unit
 ) {
-    var selectedTab by remember { mutableStateOf(HomeTab.HOME) }
+    var selectedTab by remember { mutableStateOf(HomeTab.PRODUCTS) }
     var showLogoutDialog by remember { mutableStateOf(false) }
     var profileSection by remember { mutableStateOf(ProfileSection.PROFILE_MAIN) }
+    val cartViewModel: CartViewModel = viewModel()
+    val cartState by cartViewModel.uiState.collectAsState()
 
 
     LevelUpScaffold(
@@ -48,8 +52,19 @@ fun HomeScreen(
 
             // Según la pestaña, mostramos algo distinto
             when (selectedTab) {
-                HomeTab.HOME -> HomeContent()
-                HomeTab.CART -> CartContent()
+                HomeTab.PRODUCTS -> ProductsScreen(
+                    cartItems = cartState.items,
+                    onAddToCart = { producto ->
+                        cartViewModel.addProduct(producto)
+                    }
+                )
+                HomeTab.CART -> CartScreen(
+                    cartViewModel = cartViewModel,
+                    onCheckoutClick = {
+
+                    }
+                )
+
                 HomeTab.PROFILE -> {
                     when (profileSection) {
                         ProfileSection.PROFILE_MAIN -> ProfileScreen(

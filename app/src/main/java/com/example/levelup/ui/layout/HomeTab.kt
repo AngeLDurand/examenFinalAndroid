@@ -1,7 +1,7 @@
 package com.example.levelup.ui.layout
 
 enum class HomeTab {
-    HOME,
+    PRODUCTS,
     CART,
     PROFILE
 }
