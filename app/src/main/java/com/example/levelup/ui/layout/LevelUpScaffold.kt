@@ -33,6 +33,7 @@ fun LevelUpScaffold(
     Scaffold(
         topBar = {
             TopAppBar(
+
                 title = {
                     AsyncImage(
                         model = "https://levelup-gamer-assets-prod.s3.us-east-1.amazonaws.com/logoLevelUpTopBarAndroid.webp",

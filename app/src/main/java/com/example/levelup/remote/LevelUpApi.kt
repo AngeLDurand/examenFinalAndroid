@@ -1,10 +1,13 @@
 package com.example.levelup.remote
 
+import com.example.levelup.dto.ChangePasswordRequestDTO
 import com.example.levelup.dto.LoginRequestDTO
 import com.example.levelup.dto.LoginResponseDTO
 import com.example.levelup.dto.RegisterRequestDTO
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface LevelUpApi {
@@ -18,4 +21,11 @@ interface LevelUpApi {
     suspend fun login(
         @Body request: LoginRequestDTO
     ): Response<LoginResponseDTO>
+
+    @PATCH("users/cambiar-password")
+    suspend fun cambiarPassword(
+        @Header("Authorization") authHeader: String,
+        @Body request: ChangePasswordRequestDTO
+    ): Response<Void>
+
 }

@@ -1,5 +1,6 @@
 package com.example.levelup.repository
 
+import com.example.levelup.dto.ChangePasswordRequestDTO
 import com.example.levelup.dto.LoginRequestDTO
 import com.example.levelup.dto.RegisterRequestDTO
 import com.example.levelup.remote.RetrofitClient
@@ -52,4 +53,34 @@ class UserRepository {
             null
         }
     }
+
+    suspend fun cambiarPassword(
+        token: String,
+        passwordActual: String,
+        passwordNueva: String
+    ): Boolean {
+        return try {
+            val request = ChangePasswordRequestDTO(
+                passwordActual = passwordActual,
+                passwordNueva = passwordNueva
+            )
+
+            val response = RetrofitClient.api.cambiarPassword(
+                authHeader = "Bearer $token",
+                request = request
+            )
+
+            response.isSuccessful
+        } catch (e: IOException) {
+            e.printStackTrace()
+            false
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+
+
+
 }

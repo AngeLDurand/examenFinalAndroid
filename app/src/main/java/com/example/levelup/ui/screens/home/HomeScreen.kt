@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.levelup.ui.layout.HomeTab
 import com.example.levelup.ui.layout.LevelUpScaffold
+import com.example.levelup.ui.layout.ProfileSection
 import kotlinx.coroutines.launch
 
 @Composable
@@ -23,10 +24,17 @@ fun HomeScreen(
 ) {
     var selectedTab by remember { mutableStateOf(HomeTab.HOME) }
     var showLogoutDialog by remember { mutableStateOf(false) }
+    var profileSection by remember { mutableStateOf(ProfileSection.PROFILE_MAIN) }
+
 
     LevelUpScaffold(
         selectedTab = selectedTab,
-        onTabSelected = { selectedTab = it },
+        onTabSelected = { tab ->
+            selectedTab = tab
+            if (tab == HomeTab.PROFILE) {
+                profileSection = ProfileSection.PROFILE_MAIN
+            }
+        },
         onLogoutClick = { showLogoutDialog = true }
     ) { paddingValues ->
 
@@ -42,8 +50,21 @@ fun HomeScreen(
             when (selectedTab) {
                 HomeTab.HOME -> HomeContent()
                 HomeTab.CART -> CartContent()
-                HomeTab.PROFILE -> ProfileContent()
+                HomeTab.PROFILE -> {
+                    when (profileSection) {
+                        ProfileSection.PROFILE_MAIN -> ProfileScreen(
+                            onChangePasswordClick = {
+                                profileSection = ProfileSection.CHANGE_PASSWORD
+                            }
+                        )
+                        ProfileSection.CHANGE_PASSWORD -> ChangePasswordScreen(
+                            onBackClick = {
+                                profileSection = ProfileSection.PROFILE_MAIN
+                            }
+                        )
+                    }
             }
+        }
         }
 
 

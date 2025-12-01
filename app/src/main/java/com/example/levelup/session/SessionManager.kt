@@ -13,6 +13,7 @@ private val Context.dataStore by preferencesDataStore(name = "levelup_prefs")
 object SessionManager {
 
     private val KEY_TOKEN = stringPreferencesKey("jwt_token")
+    private val KEY_PROFILE_IMAGE_URI = stringPreferencesKey("profile_image_uri")
 
     // Guardar token (suspend)
     suspend fun saveToken(context: Context, token: String) {
@@ -35,4 +36,27 @@ object SessionManager {
             prefs.remove(KEY_TOKEN)
         }
     }
+
+
+// ----------- FOTO PERFIL -----------
+
+    suspend fun saveProfileImageUri(context: Context, uri: String?) {
+        context.dataStore.edit { prefs ->
+            if (uri == null) {
+                prefs.remove(KEY_PROFILE_IMAGE_URI)
+            } else {
+                prefs[KEY_PROFILE_IMAGE_URI] = uri
+            }
+        }
+    }
+
+    suspend fun getProfileImageUri(context: Context): String? {
+        return context.dataStore.data
+            .map { it[KEY_PROFILE_IMAGE_URI] }
+            .first()
+    }
+
+
+
+
 }
