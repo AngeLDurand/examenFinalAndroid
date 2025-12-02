@@ -11,6 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -92,7 +94,9 @@ fun ProfileScreen(
 
             else -> {
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
 
@@ -177,6 +181,18 @@ fun ProfileScreen(
                                 ) {
                                     Text("Tomar foto de perfil")
                                 }
+
+                                OutlinedButton(
+                                    onClick = {
+                                        viewModel.elegirFotoRandomDeGato(context)
+                                    },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text("Elegir foto random de gato 🐱")
+                                }
+
+
+
                             }
                         }
                     }

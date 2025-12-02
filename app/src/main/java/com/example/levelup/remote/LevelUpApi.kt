@@ -1,8 +1,12 @@
 package com.example.levelup.remote
 
+import com.example.levelup.dto.AddressRequestDTO
+import com.example.levelup.dto.AddressResponseDTO
 import com.example.levelup.dto.ChangePasswordRequestDTO
+import com.example.levelup.dto.CreateOrderRequestDTO
 import com.example.levelup.dto.LoginRequestDTO
 import com.example.levelup.dto.LoginResponseDTO
+import com.example.levelup.dto.OrderResponseDTO
 import com.example.levelup.dto.ProductResponseDTO
 import com.example.levelup.dto.RegisterRequestDTO
 import retrofit2.Response
@@ -33,5 +37,30 @@ interface LevelUpApi {
 
     @GET("products")
     suspend fun getProducts(): Response<List<ProductResponseDTO>>
+
+
+    @POST("addresses")
+    suspend fun crearDireccion(
+        @Header("Authorization") authHeader: String,
+        @Body request: AddressRequestDTO
+    ): Response<AddressResponseDTO>
+
+    @GET("addresses")
+    suspend fun getDirecciones(
+        @Header("Authorization") authHeader: String
+    ): Response<List<AddressResponseDTO>>
+
+    @POST("orders")
+    suspend fun crearOrden(
+        @Header("Authorization") authHeader: String,
+        @Body request: CreateOrderRequestDTO
+    ): Response<Void>
+
+    @GET("orders")
+    suspend fun getOrders(
+        @Header("Authorization") authHeader: String
+    ): Response<List<OrderResponseDTO>>
+
+
 
 }

@@ -12,8 +12,11 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import android.content.Context
 import android.net.Uri
+import com.example.levelup.repository.CatRepository
 
-class ProfileViewModel : ViewModel() {
+class ProfileViewModel(
+    private val catRepository: CatRepository = CatRepository()
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileUiState())
     val uiState = _uiState.asStateFlow()
@@ -85,4 +88,39 @@ class ProfileViewModel : ViewModel() {
             Pair(null, null)
         }
     }
+
+
+    fun elegirFotoRandomDeGato(context: Context) {
+        viewModelScope.launch {
+
+            // Mostrar loading mientras pedimos la imagen
+            _uiState.value = _uiState.value.copy(
+                isLoading = true,
+                error = null
+            )
+
+            val url = catRepository.obtenerGatoRandomUrl()
+
+            if (url != null) {
+
+                val uri = Uri.parse(url)
+
+                // Actualizamos UI
+                _uiState.value = _uiState.value.copy(
+                    imageUri = uri,
+                    isLoading = false
+                )
+
+                // Guardamos en DataStore para que persista
+                SessionManager.saveProfileImageUri(context, url)
+
+            } else {
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    error = "No se pudo obtener una foto de gato 😿"
+                )
+            }
+        }
+    }
+
 }
